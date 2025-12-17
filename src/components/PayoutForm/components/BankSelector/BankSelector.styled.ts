@@ -7,4 +7,8 @@ export const BankSelect = styled(Select)(({ theme }) => ({
   "& .MuiOutlinedInput-notchedOutline": {
     border: "none",
   },
+
+  "& .MuiSelect-icon": {
+    color: theme.palette.text.primary,
+  },
 }));
