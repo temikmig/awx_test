@@ -20,7 +20,7 @@ export const AmountContainer = styled(Box)(({ theme }) => ({
   fontSize: theme.typography.body1.fontSize,
 
   "&:focus-within": {
-    borderColor: theme.palette.border.main,
+    borderColor: theme.palette.primary.main,
   },
 }));
 

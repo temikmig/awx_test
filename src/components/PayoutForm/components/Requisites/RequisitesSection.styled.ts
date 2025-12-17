@@ -19,6 +19,10 @@ export const RequisitesCardContainer = styled(Box)(({ theme }) => ({
     color: theme.palette.text.primary,
     opacity: 1,
   },
+
+  "&:focus-within": {
+    borderColor: theme.palette.primary.main,
+  },
 }));
 
 export const RequisitesRadioGroup = styled(RadioGroup)(({ theme }) => ({

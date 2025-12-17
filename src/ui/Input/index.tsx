@@ -12,4 +12,8 @@ export const InputStyled = styled(InputBase)(({ theme }) => ({
     color: theme.palette.text.primary,
     opacity: 1,
   },
+
+  "&.Mui-focused": {
+    borderColor: theme.palette.primary.main,
+  },
 }));
