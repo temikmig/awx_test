@@ -1,6 +1,5 @@
 import { PayoutMethodTab } from "./PayoutMethodTab";
 import { useState } from "react";
-import { BankSelector } from "../BankSelector";
 import { PayoutMethodTabsContainer } from "./PayoutMethodTabs.styled";
 
 const TABS = ["Банки", "Наличные", "Курьер"];
@@ -20,7 +19,6 @@ export const PayoutMethodTabs = () => {
           />
         ))}
       </PayoutMethodTabsContainer>
-      {activeTab === 0 && <BankSelector />}
     </>
   );
 };

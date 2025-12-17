@@ -12,7 +12,7 @@ import {
 import { InputStyled } from "@/ui/Input";
 
 export const Requisites = () => {
-  const [saveRequisites, setSaveRequisites] = useState(false);
+  const [saveRequisites, setSaveRequisites] = useState(true);
   const [type, setType] = useState("card");
 
   return (

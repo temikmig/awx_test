@@ -1,4 +1,3 @@
-import { PercentContainer } from "../PercentContainer";
 import { AmountSelector } from "./AmountSelector/index";
 import { Container } from "./AmountSelectors.styled";
 
@@ -19,7 +18,6 @@ export const AmountSelectors = () => {
           defaultValue={1200}
         />
       </Container>
-      <PercentContainer value={60} />
     </>
   );
 };
