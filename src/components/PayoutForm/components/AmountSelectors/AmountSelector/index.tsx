@@ -1,6 +1,6 @@
-import { useState } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
 import type { TitleAlign } from "./types";
 import {
   AmountSelectorWrapper,
@@ -15,59 +15,82 @@ import {
 interface AmountSelectorProps {
   title: string;
   label: string;
+  value: string;
   min?: number;
   max?: number;
   step?: number;
-  defaultValue?: number;
+  onChange: (value: number) => void;
   titleAlign?: TitleAlign;
+  isError?: boolean;
 }
 
 export const AmountSelector = ({
   title,
   label,
+  value,
   min = 0,
-  max = 100000,
+  max = 100_000,
   step = 100,
-  defaultValue = 0,
+  onChange,
   titleAlign = "left",
+  isError = false,
 }: AmountSelectorProps) => {
-  const [value, setValue] = useState(defaultValue);
+  const [inputValue, setInputValue] = useState(value);
+
+  const numericValue = Number(value.replace(/\s/g, ""));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Math.min(max, Math.max(min, Number(e.target.value)));
-    setValue(newValue);
+    const clear = e.target.value.replace(/\s/g, "").replace(",", ".");
+    if (!/^\d*\.?\d*$/.test(clear)) return;
+
+    setInputValue(clear);
+
+    const num = Number(clear);
+    if (!isNaN(num)) {
+      onChange(Math.min(max, Math.max(min, num)));
+    }
   };
 
   const handleIncrement = () => {
-    setValue((prev) => Math.min(prev + step, max));
+    onChange(Math.min(numericValue + step, max));
   };
 
   const handleDecrement = () => {
-    setValue((prev) => Math.max(prev - step, min));
+    onChange(Math.max(numericValue - step, min));
   };
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   return (
     <AmountSelectorWrapper>
       <AmountTitle titleAlign={titleAlign}>{title}</AmountTitle>
-      <AmountContainer>
+      <AmountContainer isError={isError}>
         <AmountLabel>{label}</AmountLabel>
         <AmountWrapper>
           <AmountIconButton
             size="small"
             onClick={handleDecrement}
-            disabled={value <= min}
+            disabled={numericValue <= min}
           >
             <RemoveIcon />
           </AmountIconButton>
+
           <AmountValueInput
-            type="number"
-            value={value}
+            type="text"
+            value={inputValue}
+            min={min}
+            max={max}
+            step={step}
             onChange={handleChange}
+            pattern="[0-9]*[.,]?[0-9]*"
           />
+
           <AmountIconButton
             size="small"
             onClick={handleIncrement}
-            disabled={value >= max}
+            disabled={numericValue >= max}
           >
             <AddIcon />
           </AmountIconButton>

@@ -8,7 +8,9 @@ export const AmountSelectorWrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const AmountContainer = styled(Box)(({ theme }) => ({
+export const AmountContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isError",
+})<{ isError?: boolean }>(({ theme, isError }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "column",
@@ -16,11 +18,16 @@ export const AmountContainer = styled(Box)(({ theme }) => ({
   padding: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.background.default,
-  border: `1px solid ${theme.palette.border.main}`,
+  border: `1px solid ${
+    isError ? theme.palette.error.main : theme.palette.border.main
+  }`,
   fontSize: theme.typography.body1.fontSize,
+  transition: "border-color 0.2s ease",
 
   "&:focus-within": {
-    borderColor: theme.palette.primary.main,
+    borderColor: isError
+      ? theme.palette.error.main
+      : theme.palette.primary.main,
   },
 }));
 
@@ -45,7 +52,7 @@ export const AmountLabel = styled(Typography)(({ theme }) => ({
 }));
 
 export const AmountValueInput = styled("input")(({ theme }) => ({
-  width: 48,
+  width: "100%",
   textAlign: "center",
   fontSize: theme.typography.body1.fontSize,
   border: "none",
