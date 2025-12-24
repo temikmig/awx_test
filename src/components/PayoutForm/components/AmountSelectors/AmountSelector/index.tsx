@@ -79,6 +79,7 @@ export const AmountSelector = ({
 
           <AmountValueInput
             type="text"
+            inputMode="decimal"
             value={inputValue}
             min={min}
             max={max}
